@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
       theme: RestaurantTheme.lightTheme,
       initialRoute: NavigationRoute.mainRoute.name,
       routes: {
-        NavigationRoute.mainRoute.name: (context) => const HomeScreen(),
+        NavigationRoute.mainRoute.name: (context) => const DetailScreen(),
         // NavigationRoute.detailRoute.name: (context) => DetailScreen(
         //       restauranId: ModalRoute.of(context)?.settings.arguments as int,
         //     )
