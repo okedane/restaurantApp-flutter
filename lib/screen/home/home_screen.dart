@@ -51,7 +51,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 RestaurantErrorState(error: var message) => Center(
-                    child: Text(message),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error_outline,
+                            size: 50, color: Colors.redAccent),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Gagal memuat data",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          message,
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<RestaurantListProvider>()
+                                .fetchRestaurantList();
+                          },
+                          child: const Text("Coba Lagi"),
+                        ),
+                      ],
+                    ),
                   ),
                 _ => const SizedBox(),
               };
