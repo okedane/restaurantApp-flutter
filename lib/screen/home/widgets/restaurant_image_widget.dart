@@ -13,7 +13,6 @@ class RestaurantImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Container sebagai background dan border
         Container(
           height: 200,
           width: MediaQuery.of(context).size.width,
@@ -25,7 +24,6 @@ class RestaurantImageWidget extends StatelessWidget {
             ),
           ),
         ),
-
         ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
