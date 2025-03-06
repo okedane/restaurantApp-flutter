@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/theme/theme_provider.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Setting"),
-        actions: const [],
+        title: const Text('Setting'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Text("Setting"),
+      body: Column(
+        children: [
+          ListTile(
+            title: const Text('Setting Theme'),
+            trailing: Switch(
+              value: themeProvider.isDarkMode,
+              onChanged: (value) {
+                themeProvider.toggleTheme(value);
+              },
+            ),
+          ),
+          const ListTile(
+            title: Text("Restaurant Notifikasi"),
+            trailing: Icon(
+              Icons.add,
+              size: 24.0,
+            ),
+          ),
+        ],
       ),
     );
   }
