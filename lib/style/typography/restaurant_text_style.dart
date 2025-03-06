@@ -21,12 +21,10 @@ class RestaurantTextStyle {
     fontWeight: FontWeight.w500,
   );
 
-  //masuk
   static TextStyle headlineLarge = _commonStyle.copyWith(
     fontSize: 20,
     fontWeight: FontWeight.w700,
   );
-  // masuk
   static TextStyle headlineMedium = _commonStyle.copyWith(
     fontSize: 18,
     fontWeight: FontWeight.w600,
@@ -37,19 +35,19 @@ class RestaurantTextStyle {
     fontWeight: FontWeight.w500,
   );
 
-  //masuk nama Restauran
+
   static TextStyle titleLarge = _commonStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.bold,
   );
-  //masuk nama daerah
+
   static TextStyle titleMedium = _commonStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: RestaurantColors.SeconText.color,
   );
 
-  //masuk nama
+  
   static TextStyle titleSmall = _commonStyle.copyWith(
     fontSize: 14,
     fontWeight: FontWeight.w400,

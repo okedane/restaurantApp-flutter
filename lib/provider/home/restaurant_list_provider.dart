@@ -17,7 +17,7 @@ class RestaurantListProvider extends ChangeNotifier {
     try {
       _resultState = RestaurantListLoadingState();
       notifyListeners();
-      //  throw Exception("Simulasi error dari provider!");
+
       final result = await _apiServices.getRestaurant();
 
       if (result.error) {

@@ -4,16 +4,16 @@ sealed class SearchResultState {}
 
 class SearchNoneState extends SearchResultState {}
 
-class SearchLoadinngState extends SearchResultState {}
+class SearchLoadingState extends SearchResultState {}
 
 class SearchErrorState extends SearchResultState {
-  final String meesage;
+  final String message;
 
-  SearchErrorState(this.meesage);
+  SearchErrorState(this.message);
 }
 
-class SearchLoandedState extends SearchResultState {
+class SearchLoadedState  extends SearchResultState {
   final List<Restaurant> restaurants;
 
-  SearchLoandedState(this.restaurants);
+  SearchLoadedState(this.restaurants);
 }

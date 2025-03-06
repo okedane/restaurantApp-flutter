@@ -4,14 +4,15 @@ import 'package:restaurant_app/data/model/home/restaurant.dart';
 import 'package:restaurant_app/static/search_result_state.dart';
 
 class RestaurantSearchProvider with ChangeNotifier {
-  final ApiServices apiServices = ApiServices();
+  final ApiServices apiServices;
   SearchResultState _state = SearchNoneState();
   List<Restaurant> _restaurants = [];
 
-  RestaurantSearchProvider(ApiServices read);
+  RestaurantSearchProvider(this.apiServices);
 
   SearchResultState get state => _state;
   List<Restaurant> get restaurants => _restaurants;
+
   Future<void> searchRestaurant(String query) async {
     if (query.isEmpty) {
       _state = SearchNoneState();
@@ -20,7 +21,7 @@ class RestaurantSearchProvider with ChangeNotifier {
       return;
     }
 
-    _state = SearchLoadinngState();
+    _state = SearchLoadingState();
     notifyListeners();
 
     try {
@@ -29,7 +30,7 @@ class RestaurantSearchProvider with ChangeNotifier {
         _state = SearchErrorState("Restoran tidak ditemukan");
         _restaurants = [];
       } else {
-        _state = SearchLoandedState(result.restaurants);
+        _state = SearchLoadedState(result.restaurants);
         _restaurants = result.restaurants;
       }
     } catch (e) {
@@ -39,3 +40,7 @@ class RestaurantSearchProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+
+

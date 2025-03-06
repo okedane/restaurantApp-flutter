@@ -1,3 +1,5 @@
+import 'package:restaurant_app/data/model/detail/restaurant_detail.dart';
+
 class Restaurant {
   final String id;
   final String name;
@@ -23,6 +25,28 @@ class Restaurant {
       pictureId: json['pictureId'],
       city: json['city'],
       rating: (json['rating'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "id": id,
+      "name": name,
+      "description": description,
+      "pictureId": pictureId,
+      "city": city,
+      "rating": rating,
+    };
+  }
+
+  factory Restaurant.fromRestaurantDetail(RestaurantDetail detail) {
+    return Restaurant(
+      id: detail.id,
+      name: detail.name,
+      description: detail.description,
+      pictureId: detail.pictureId,
+      city: detail.city,
+      rating: detail.rating,
     );
   }
 }

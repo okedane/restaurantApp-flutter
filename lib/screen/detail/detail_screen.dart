@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/detail/bookmark_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/screen/detail/widget/body_of_detail_screen.dart';
+import 'package:restaurant_app/screen/detail/widget/bookmark_icon_widget.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
+import 'package:restaurant_app/widget/error_state_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final String restaurantId;
@@ -42,6 +45,20 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
         ),
+        actions: [
+          ChangeNotifierProvider(
+            create: (context) => BookmarkIconProvider(),
+            child: Consumer<RestaurantDetailProvider>(
+              builder: (context, value, child) {
+                return switch (value.resultState) {
+                  RestaurantDetailLoadedState(data: var restaurant) =>
+                    BookmarkIconWidget(restaurant: restaurant),
+                  _ => const SizedBox(),
+                };
+              },
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: SizedBox(
@@ -56,9 +73,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   SingleChildScrollView(
                     child: BodyOfDetailScreenWidget(restaurant: restaurant),
                   ),
-                RestaurantDetailErrorState(error: var message) => Center(
-                    child: Text(message),
-                  ),
+                RestaurantDetailErrorState(error: var message) =>
+                  Center(child: ErrorStateWidget(message: message)),
                 _ => const SizedBox(),
               };
             },

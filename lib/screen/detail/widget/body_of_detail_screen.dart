@@ -14,17 +14,21 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            image: DecorationImage(
-                image: NetworkImage(
-                    "https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}"),
-                fit: BoxFit.cover),
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                8.0,
+        Hero(
+          tag: 'restaurant-image-${restaurant.id}',
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              image: DecorationImage(
+                  image: NetworkImage(
+                    "https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}",
+                  ),
+                  fit: BoxFit.cover),
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8.0,
+                ),
               ),
             ),
           ),
@@ -37,9 +41,16 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      restaurant.name,
-                      style: Theme.of(context).textTheme.headlineLarge,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          restaurant.name,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        Text(restaurant.city,
+                            style: Theme.of(context).textTheme.titleLarge),
+                      ],
                     ),
                   ),
                   Icon(Icons.star, color: Colors.amber),
@@ -52,24 +63,24 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               DividerWidget(),
-              //DESCRIPSI
               Text(
                 "Description",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 10.0),
               Text(restaurant.description),
               DividerWidget(),
-              //INFORMASI RESTORAN
               Text(
                 "Informasi Restoran",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 10.0),
               Row(
                 children: [
                   Expanded(
-                    child: Text("Kategori"),
+                    child: Text(
+                      "Kategori",
+                    ),
                   ),
                   Text(
                     restaurant.categories
@@ -91,7 +102,7 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
               ),
               Text(
                 "Foods",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               SizedBox(
                 height: 50,
@@ -116,13 +127,12 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                   }).toList(),
                 ),
               ),
-
               const SizedBox(
                 height: 10.0,
               ),
               Text(
                 "Drinks",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               SizedBox(
                 height: 50,
@@ -151,8 +161,8 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                "Ulasan Pembeli",
-                style: Theme.of(context).textTheme.titleLarge,
+                "Restauran Reviews",
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               ListView.builder(
                 itemCount: restaurant.customerReviews.length,
@@ -161,7 +171,6 @@ class BodyOfDetailScreenWidget extends StatelessWidget {
                 physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(

@@ -14,6 +14,8 @@ class RestauranCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final bool isDarkMode = theme.brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -23,12 +25,11 @@ class RestauranCardWidget extends StatelessWidget {
             height: 105,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDarkMode ? Colors.black : Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
               ),
-              border: Border.all(color: Colors.black26, width: 2),
             ),
             padding: const EdgeInsets.all(15),
             child: Row(
@@ -50,7 +51,7 @@ class RestauranCardWidget extends StatelessWidget {
                 const SizedBox(width: 4.0),
                 Transform.translate(
                   offset: const Offset(0, 2),
-                  child: Text("4.8",
+                  child: Text(restaurant.rating.toString(),
                       style: Theme.of(context).textTheme.titleLarge),
                 )
               ],

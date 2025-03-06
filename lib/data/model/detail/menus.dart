@@ -1,5 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-
 import 'menu_item.dart';
 
 class Menus {
@@ -19,5 +17,4 @@ class Menus {
     );
   }
 
-  map(Container Function(dynamic menu) param0) {}
 }

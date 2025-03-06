@@ -7,13 +7,17 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final bool isDarkMode = theme.brightness == Brightness.dark;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDarkMode ? Colors.black : Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
           BoxShadow(
-            color: const Color.fromARGB(115, 158, 158, 158),
+            color: isDarkMode
+                ? Colors.white24
+                : const Color.fromARGB(115, 158, 158, 158),
             blurRadius: 5.0,
             offset: const Offset(0, 3),
           ),
@@ -28,12 +32,13 @@ class SearchWidget extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
-              color: Colors.grey[300]!,
+              color: isDarkMode ? Colors.white : Colors.black,
+              width: 2,
             ),
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.blueGrey[900],
+            color: isDarkMode ? Colors.white : Colors.black,
           ),
         ),
       ),
