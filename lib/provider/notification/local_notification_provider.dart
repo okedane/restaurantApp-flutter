@@ -7,21 +7,37 @@ class LocalNotificationProvider extends ChangeNotifier {
   LocalNotificationProvider(this.flutterNotificationService);
 
   int _notificationId = 0;
-  bool? _permission = false;
-  bool? get permission => _permission;
+  bool _isScheduled = false;
+
+  bool get isScheduled => _isScheduled;
 
   Future<void> requestPermissions() async {
-    _permission = await flutterNotificationService.requestPermissions();
+    final permissionGranted =
+        await flutterNotificationService.requestPermissions();
+    if (permissionGranted == true) {
+      notifyListeners();
+    }
+  }
+
+  void scheduleDailyElevenAMNotification() {
+    _notificationId += 1;
+    flutterNotificationService.scheduleDailyElevenAMNotification(
+      id: _notificationId,
+    );
+    _isScheduled = true;
     notifyListeners();
   }
 
-  void showNotification() {
-    _notificationId += 1;
-    flutterNotificationService.showNotification(
-      id: _notificationId,
-      title: "New Notification",
-      body: "This is a new notification with id $_notificationId",
-      payload: "This is a payload from notification with id $_notificationId",
-    );
+  Future<void> checkPendingNotificationRequests() async {
+    final pendingNotifications =
+        await flutterNotificationService.pendingNotificationRequests();
+    _isScheduled = pendingNotifications.isNotEmpty;
+    notifyListeners();
+  }
+
+  Future<void> cancelNotification(int id) async {
+    await flutterNotificationService.cancelNotification(id);
+    _isScheduled = false;
+    notifyListeners();
   }
 }

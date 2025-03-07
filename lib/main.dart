@@ -53,7 +53,9 @@ void main() async {
           create: (context) => ThemeProvider(sharedPreferencesService),
         ),
         Provider(
-          create: (context) => LocalNotificationService()..init(),
+          create: (context) => LocalNotificationService()
+            ..init()
+            ..configureLocalTimeZone(),
         ),
         ChangeNotifierProvider(
           create: (context) => LocalNotificationProvider(
