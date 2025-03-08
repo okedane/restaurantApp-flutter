@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/service/notification/local_notification_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalNotificationProvider extends ChangeNotifier {
   final LocalNotificationService flutterNotificationService;
-
-  LocalNotificationProvider(this.flutterNotificationService);
-
-  int _notificationId = 0;
+  int _notificationId = 1;
   bool _isScheduled = false;
 
+  LocalNotificationProvider(this.flutterNotificationService) {
+    _loadReminderStatus();
+  }
+
   bool get isScheduled => _isScheduled;
+
+  Future<void> _loadReminderStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    _isScheduled = prefs.getBool('daily_reminder') ?? false;
+    if (_isScheduled) {
+      checkPendingNotificationRequests();
+    }
+    notifyListeners();
+  }
+
+  Future<void> _saveReminderStatus(bool status) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('daily_reminder', status);
+  }
 
   Future<void> requestPermissions() async {
     final permissionGranted =
@@ -20,11 +36,11 @@ class LocalNotificationProvider extends ChangeNotifier {
   }
 
   void scheduleDailyElevenAMNotification() {
-    _notificationId += 1;
     flutterNotificationService.scheduleDailyElevenAMNotification(
       id: _notificationId,
     );
     _isScheduled = true;
+    _saveReminderStatus(true);
     notifyListeners();
   }
 
@@ -35,9 +51,10 @@ class LocalNotificationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> cancelNotification(int id) async {
-    await flutterNotificationService.cancelNotification(id);
+  Future<void> cancelNotification() async {
+    await flutterNotificationService.cancelNotification(_notificationId);
     _isScheduled = false;
+    _saveReminderStatus(false);
     notifyListeners();
   }
 }

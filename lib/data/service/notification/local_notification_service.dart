@@ -87,7 +87,6 @@ class LocalNotificationService {
       now.month,
       now.day,
       11,
-      47,
     );
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -118,8 +117,8 @@ class LocalNotificationService {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Reminder Makan Siang 🍽️',
-      'Jangan lupa makan siang agar tetap sehat!',
+      'Reminder Makan Siang',
+      'Cari Tempat Makan Di sini dijamin muantap',
       datetimeSchedule,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,

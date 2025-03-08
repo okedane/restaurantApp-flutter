@@ -9,7 +9,8 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final notificationProvider = Provider.of<LocalNotificationProvider>(context);
+    final notificationProvider =
+        Provider.of<LocalNotificationProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,17 +30,17 @@ class SettingScreen extends StatelessWidget {
             ),
           ),
 
-          // 🔹 Switch untuk mengaktifkan / menonaktifkan Reminder Makan Siang
           ListTile(
             title: const Text("Pengingat Makan Siang"),
-            subtitle: const Text("Notifikasi akan muncul setiap pukul 11:00 AM"),
+            subtitle:
+                const Text("Notifikasi akan muncul setiap pukul 11:00 AM"),
             trailing: Switch(
               value: notificationProvider.isScheduled,
               onChanged: (value) {
                 if (value) {
                   notificationProvider.scheduleDailyElevenAMNotification();
                 } else {
-                  notificationProvider.cancelNotification(1);
+                  notificationProvider.cancelNotification();
                 }
               },
             ),
